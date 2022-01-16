@@ -21,18 +21,18 @@ module.exports = class DataRepository {
 	}
 
 	async get(field) {
-		logger.debug(`Запрос данных поля ${field}`);
+		logger.debug(`#dataRepository get request to ${field}`);
 		if (!this.#db) throw new Error("DataRepository is not initialized")
 
 		if (this.#cache[field]) {
-			logger.debug(`Ответ на запрос поля ${field}, возвращено кэшированное значение ${inspect(this.#cache[field])}`);
+			logger.debug(`#dataRepository value of ${field} was found in cache: ${inspect(this.#cache[field])}`);
 			return this.#cache[field];
 		}
-		
+
 		const row = await this.#db.collection("botData").findOne({ field });
 		const data = row?.value;
 
-		logger.debug(`Ответ на запрос поля ${field}: ${inspect(data)}\nКэшированное значение: ${this.#cache[field]}`);
+		logger.debug(`#dataRepository get response for ${field} value: ${inspect(data)}\nValue was cached as: ${this.#cache[field]}`);
 		if (!this.#cache[field]) this.#cache[field] = data;
 
 		return data;
@@ -40,16 +40,17 @@ module.exports = class DataRepository {
 
 	async set(field, value) {
 		try {
-			logger.debug(`Запись значения ${inspect(value)} в поле ${field}`);
+			logger.debug(`#dataRepository set request to ${field} with value: ${inspect(value)}`);
 			if (!this.#db) throw new Error("DataRepository is not initialized");
-			if (this.#cache[field] === value) return logger.debug(`Значение не было записано т.к. оно совпадает со значением в кэше.`);
+			if (this.#cache[field] === value)
+				return logger.debug(`#dataRepository set request was ignored: Provided value identical to the cached one`);
 
 			await this.#db.collection("botData").updateOne({ field }, { $set: { value } }, { upsert: true });
 			this.#cache[field] = value;
 
-			logger.debug(`Значение ${inspect(value)} записано в поле ${field}`);
+			logger.debug(`#dataRepository set request value ${inspect(value)} was written to ${field}`);
 		} catch(err) {
-			logger.error(`Не удалось записать значение ${inspect(value)} записано в поле ${field}`, err);
+			logger.error(`#dataRepository set request failed to write ${inspect(value)} into ${field}`, err);
 		}
 	}
 };

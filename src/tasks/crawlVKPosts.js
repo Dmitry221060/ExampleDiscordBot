@@ -1,4 +1,4 @@
-const { trunk } = require("../utils");
+const { trunc } = require("../utils");
 const logger = require("../utils/logger");
 const { interval, groupIds, outputChannelIds } = require("../../config").tasks.crawlVKPosts;
 const Task = require("./Task");
@@ -90,7 +90,7 @@ function createEmbed(post) {
   if (post.copy_history?.length) {
     embed.addField(
       ":loudspeaker: ​ " + post.copy_history[0].source.name,
-      trunk(post.copy_history[0].text, 1024)
+      trunc(post.copy_history[0].text, 1024)
     );
   }
 

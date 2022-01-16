@@ -2,10 +2,10 @@ const fetch = require("node-fetch");
 const config = require("../../config");
 
 class Util {
-	static LCP(strings) { //Принимает массив строк, возвращает наиболее длинный общий префикс
+	static LCP(strings) { // Takes an array of strings and returns longest common prefix
 		var smallest, largest, i, str;
 		if (!Array.isArray(strings) || !strings.length) return "";
-		//Находим алфавитно наименьшую и наибольшую строки
+
 		smallest = strings[0];
 		largest = strings[0];
 		for (i = 1; i < strings.length; i++) {
@@ -13,12 +13,12 @@ class Util {
 			if (str > largest) largest = str;
 			if (str < smallest) smallest = str;
 		}
-		//Сравниваем их, пока не найдём отличающийся символ
+
 		for (i = 0; i < smallest.length; i++) if (smallest[i] != largest[i]) return smallest.substr(0, i);
 		return smallest;
 	}
 
-  static formatTimestamp(date = new Date()) { // Возвращает форматированную дату [DD.MM.YYYY HH.MM.SS]
+  static formatTimestamp(date = new Date()) { // Formates Date as [DD.MM.YYYY HH.MM.SS]
     return `[${
       Util.twoNum(date.getDate())
     }.${
@@ -26,25 +26,25 @@ class Util {
     }.${
       date.getFullYear()
     } ${
-      Util.twoNum(date.getHours()) 
-    }:${ 
-      Util.twoNum(date.getMinutes()) 
+      Util.twoNum(date.getHours())
     }:${
-      Util.twoNum(date.getSeconds()) 
+      Util.twoNum(date.getMinutes())
+    }:${
+      Util.twoNum(date.getSeconds())
     }]`;
   }
 
-  static twoNum(str) { // Дополняет строку нулями слева, возвращает последние два символа
+  static twoNum(str) { // Pads string with zeros until it's length equals 2
     return ("0" + str).slice(-2);
   }
 
-  static trunk(str, maxLength) { // Ограничивает длинну строки сверху до maxLength-3, добавляя троеточие
+  static trunc(str, maxLength) { // Truncates string to maxLength - 3 and adds ... to the end
     if (str.length <= maxLength) return str;
     if (maxLength <= 3 || maxLength > Number.MAX_SAFE_INTEGER) throw new Error("max length should be safe number greater then 3");
     return str.slice(0, maxLength - 3) + "...";
   }
 
-  static dayOfYear(day = new Date()) { // Возвращает номер дня в году, от 0 до 364(365)
+  static dayOfYear(day = new Date()) { // Returns the number of the day in the year. (From 0 to 364 or 365)
     if (!(day instanceof Date)) throw new Error("day can only be a Date object");
 
     const startOfYear = new Date(day.getFullYear(), 0, 0);
@@ -54,9 +54,9 @@ class Util {
 
   static async searchOnWiki(page) {
     try {
-      const url = "https://en.wiktionary.org/w/api.php" + 
+      const url = "https://en.wiktionary.org/w/api.php" +
                   "?action=opensearch" +
-                  "&format=json" + 
+                  "&format=json" +
                   "&formatversion=2" +
                   "&search=" + encodeURIComponent(page) +
                   "&namespace=0" +
@@ -70,7 +70,7 @@ class Util {
     }
   }
 
-  static randomOf(arr) { //Возвращает случайный элемент массива
+  static randomOf(arr) { // Returns tandom element of an array
     return arr[Math.floor(Math.random() * arr.length)];
   }
 }
