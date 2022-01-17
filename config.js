@@ -1,7 +1,7 @@
 const config = {
   bot: {
     prefixes: ["!"],
-	status: "!help",
+	  status: "!help",
     maxWikiSearchResults: 3, // Should be in the 1 to 100 interval
     servers: [
       {

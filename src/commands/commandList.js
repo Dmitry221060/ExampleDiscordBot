@@ -12,7 +12,6 @@ const commands = [
   {
     name: "help",
     aliases: ["h", "commands", "c"],
-    allowedChannels: ["664375835448442894", "782247142924091442"],
     description: "Returns list of commands",
     example: "!help [commandName]",
     handler: async ({ msg, params }) => {
@@ -65,7 +64,6 @@ const commands = [
   {
     name: "quote",
     aliases: ["qu", "q"],
-    allowedChannels: ["664375835448442894", "782247142924091442"],
     description: "Sends random quote from predefined pool",
     example: "!quote",
     handler: async ({ msg }) => {
@@ -77,7 +75,6 @@ const commands = [
     name: "dailyQuote",
     disabled: true,
     aliases: ["dqu", "dq", "hodie"],
-    allowedChannels: ["664375835448442894", "782247142924091442"],
     description: "Sends quote of the day",
     example: "!dailyQuote",
     handler: async ({ msg }) => {
@@ -89,7 +86,6 @@ const commands = [
   {
     name: "shitposts",
     aliases: ["shitpost", "shit", "s"],
-    allowedChannels: ["664375835448442894", "782247142924091442"],
     description: "Sends unfunny jokes",
     example: "!shitposts [shitpostName]",
     handler: async ({ msg, params }) => {
@@ -118,7 +114,7 @@ const commands = [
   {
     name: "wiki",
     aliases: ["w", "wikipedia", "dic"],
-    allowedChannels: ["664375835448442894", "782247142924091442"],
+    allowedChannels: ["000000000000000000"],
     description: "Sends link to wiki dictionary",
     example: "!wiki Caesar",
     handler: async ({ msg, params }) => {
@@ -129,10 +125,10 @@ const commands = [
 
       if (searchData === null) {
         logger.error("Failed to execute the wiki search", searchError);
-        return await msg.channel.send(`<https://en.wiktionary.org/wiki/${params}#Latin>`);
+        return await msg.channel.send(`<https://en.wiktionary.org/wiki/${params}>`);
       }
 
-      const urls = searchData[3].map(url => `<${url}#Latin>`);
+      const urls = searchData[3].map(url => `<${url}>`);
 
       if (searchData[1][0] === searchData[0])
         return await msg.channel.send(urls[0]);

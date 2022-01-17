@@ -39,7 +39,7 @@ class SayHiTask extends Task {
 
     for (const channelId of outputChannelIds) {
       try {
-        let hiCounter = await this.#dataRepository.get(`${channelId}.hiCounter`);
+        let hiCounter = await this.#dataRepository.get(`${channelId}.hiCounter`) || 0;
 
         await this.#client.channels.cache.get(channelId).send(message);
         hiCounter++;
