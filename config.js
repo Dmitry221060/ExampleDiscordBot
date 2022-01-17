@@ -24,10 +24,9 @@ const config = {
   },
 
   tasks: {
-    crawlVKPosts: {
+    sayHi: {
       interval: 5*60*1000, // 5 minutes
-      groupIds: [-000000000, -000000001],
-      postsPerRequest: 20, // Should be in the 1 to 100 interval
+      message: "Hi everyone :)",
       outputChannelIds: ["000000000000000000"]
     }
   }

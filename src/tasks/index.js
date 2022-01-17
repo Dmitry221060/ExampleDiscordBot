@@ -1,7 +1,7 @@
-const CrawlVKPostsTask = require("./crawlVKPosts");
+const SayHiTask = require("./sayHi");
 
 const taskList = [
-  new CrawlVKPostsTask()
+  new SayHiTask()
 ]
 
 function register(client) {
