@@ -70,7 +70,7 @@ class Util {
     }
   }
 
-  static randomOf(arr) { // Returns tandom element of an array
+  static randomOf(arr) { // Returns random element of an array
     return arr[Math.floor(Math.random() * arr.length)];
   }
 }
