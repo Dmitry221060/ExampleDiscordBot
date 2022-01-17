@@ -115,6 +115,8 @@ const commands = [
     name: "wiki",
     aliases: ["w", "wikipedia", "dic"],
     allowedChannels: ["000000000000000000"],
+    allowedUsers: ["000000000000000000"],
+    disabled: true,
     description: "Sends link to wiki dictionary",
     example: "!wiki Caesar",
     handler: async ({ msg, params }) => {
